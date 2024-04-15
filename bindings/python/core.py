@@ -8,10 +8,10 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 
 lib_name=""
 if sys.platform.startswith('win32'):
-    lib_name=os.path.join(dir_path, './core_wrapper.dll')
+    lib_name=os.path.join(dir_path, './core_wrapper.dll') # issues with DLL's -> prefer unix systems
     core_lib = ctypes.cdll.LoadLibrary(lib_name)
 elif sys.platform.startswith('linux'):
-    lib_name=os.path.join(dir_path, './core_wrapper.so')
+    lib_name=os.path.join(dir_path, './libcore_wrapper.so')
     core_lib = ctypes.cdll.LoadLibrary(lib_name)
 else:
     raise OSError("Unsupported platform")
@@ -28,16 +28,11 @@ core_lib.multiply.argtypes = [ctypes.c_int32, ctypes.c_int32]
 core_lib.divide.restype = ctypes.c_float
 core_lib.divide.argtypes = [ctypes.c_float, ctypes.c_float]
 
-core_lib.create_circle.restype = ctypes.c_void_p
-core_lib.create_circle.argtypes = [ctypes.c_float]
+core_lib.getCircleArea.restype = ctypes.c_float
+core_lib.getCircleArea.argtypes = [ctypes.c_float]
 
-core_lib.get_area.restype = ctypes.c_float
-core_lib.get_area.argtypes = [ctypes.c_void_p]
-
-core_lib.get_circumference.restype = ctypes.c_float
-core_lib.get_circumference.argtypes = [ctypes.c_void_p]
-
-core_lib.delete_circle.argtypes = [ctypes.c_void_p]
+core_lib.getCircleCircumference.restype = ctypes.c_float
+core_lib.getCircleCircumference.argtypes = [ctypes.c_float]
 
 def main():
     result_add = core_lib.add(10, 5)
@@ -53,15 +48,12 @@ def main():
     print("Division result:", result_divide)
 
     radius = 5.0
-    circle_ptr = core_lib.create_circle(radius)
 
-    area = core_lib.get_area(circle_ptr)
+    area = core_lib.getCircleArea(radius)
     print("Circle area:", area)
 
-    circumference = core_lib.get_circumference(circle_ptr)
+    circumference = core_lib.getCircleCircumference(radius)
     print("Circle circumference:", circumference)
-
-    core_lib.delete_circle(circle_ptr)
 
 if __name__ == "__main__":
     main()
