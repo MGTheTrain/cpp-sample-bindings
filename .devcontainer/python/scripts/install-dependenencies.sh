@@ -11,8 +11,3 @@ cd /tmp/
 rm -rf vcpkg
 git clone https://github.com/Microsoft/vcpkg.git
 ./vcpkg/bootstrap-vcpkg.sh
-# emscripten SDK
-git clone https://github.com/emscripten-core/emsdk.git
-cd emsdk
-./emsdk install latest-upstream
-./emsdk activate latest-upstream
