@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifdef MGTT_RENDERING_TEST
+#ifdef MGTT_CORE_TEST
 #include <gtest/gtest.h>
 #include <math-utils.h>
 
