@@ -22,37 +22,24 @@
 
 using System.Runtime.InteropServices;
 
-namespace Mgtt.CoreWrapper
+namespace Mgtt.CoreWrapper;
+public class CoreWrapper
 {
-    public class CoreWrapper
-    {
-        // Static field to hold the library path
-        private static string libraryPath;
+    [DllImport("core_wrapper", EntryPoint = "add")]
+    public static extern int Add(int a, int b);
 
-        // Property to set and get the library path
-        public static string LibraryPath
-        {
-            get { return libraryPath; }
-            set { libraryPath = value; }
-        }
+    [DllImport("core_wrapper", EntryPoint = "subtract")]
+    public static extern int Subtract(int a, int b);
 
-        // Declare the methods with the specified library path using EntryPoint
-        [DllImport("{LibraryPath}", EntryPoint = "add")]
-        public static extern int Add(int a, int b);
+    [DllImport("core_wrapper", EntryPoint = "multiply")]
+    public static extern int Multiply(int a, int b);
 
-        [DllImport("{LibraryPath}", EntryPoint = "subtract")]
-        public static extern int Subtract(int a, int b);
+    [DllImport("core_wrapper", EntryPoint = "divide")]
+    public static extern float Divide(float a, float b);
 
-        [DllImport("{LibraryPath}", EntryPoint = "multiply")]
-        public static extern int Multiply(int a, int b);
+    [DllImport("core_wrapper", EntryPoint = "getCircleArea")]
+    public static extern float GetCircleArea(float radius);
 
-        [DllImport("{LibraryPath}", EntryPoint = "divide")]
-        public static extern float Divide(float a, float b);
-
-        [DllImport("{LibraryPath}", EntryPoint = "getCircleArea")]
-        public static extern float GetCircleArea(float radius);
-
-        [DllImport("{LibraryPath}", EntryPoint = "getCircleCircumference")]
-        public static extern float GetCircleCircumference(float radius);
-    }
+    [DllImport("core_wrapper", EntryPoint = "getCircleCircumference")]
+    public static extern float GetCircleCircumference(float radius);
 }

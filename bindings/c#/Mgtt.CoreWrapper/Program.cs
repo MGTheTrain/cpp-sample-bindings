@@ -20,25 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using CommandLine;
-
 namespace Mgtt.CoreWrapper;
 class Program
 {
     static int Main(string[] args)
     {
-        Options options = null;
-        Parser.Default.ParseArguments<Options>(args)
-            .WithParsed(o => options = o);
-
-        if (options == null)
-        {
-            Console.WriteLine("Usage: dotnet run --coreLibraryPath <coreLibraryPath>");
-            return 1;
-        }
-
-        CoreWrapper.LibraryPath = options.CoreLibraryPath;
-
         int resultAdd = CoreWrapper.Add(10, 5);
         Console.WriteLine("Addition result: " + resultAdd);
 
@@ -61,10 +47,4 @@ class Program
 
         return 0;
     }
-}
-
-public class Options
-{
-    [Option("coreLibraryPath", Required = true, HelpText = "Path to the core library.")]
-    public string CoreLibraryPath { get; set; }
 }
