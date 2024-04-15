@@ -9,4 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - DD-MM-YEAR
 
-TBD
+### Added
+
+- [Feature] Initial project setup including `devcontainer.json` files, `C core module` and Python bindings
