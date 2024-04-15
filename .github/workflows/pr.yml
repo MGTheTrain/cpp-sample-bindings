@@ -3,8 +3,7 @@ name: Build and Test
 on:
   pull_request:
     branches:
-      - master
-      - develop
+      - main
 
 jobs:
   build_and_test_ubuntu:
