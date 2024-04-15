@@ -11,3 +11,5 @@ secrets.cfg
 *.dll
 *.so
 __pycache__
+obj
+bin
