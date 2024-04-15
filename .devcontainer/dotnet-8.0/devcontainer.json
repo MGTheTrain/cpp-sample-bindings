@@ -4,5 +4,6 @@
     "name": "Tools for C# .Net 8.0 repos",
     "image": "mcr.microsoft.com/vscode/devcontainers/dotnet:8.0",
     // Features to add to the dev container. More info: https://containers.dev/features
+    "postCreateCommand": "bash .devcontainer/debian11-amd64/scripts/install-dependencies.sh",
     "remoteUser": "root"
 }
