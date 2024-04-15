@@ -20,83 +20,79 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifdef MGTT_CORE_TEST 
+#ifdef MGTT_CORE_TEST
 
 #include <gtest/gtest.h>
 #include <math-utils.h>
 
 // Test fixture for MathOperations tests
 class MathOperationsTest : public ::testing::Test {
-protected:
-    void SetUp() override {}
-    void TearDown() override {}
+ protected:
+  void SetUp() override {}
+  void TearDown() override {}
 };
 
 // Test case for MathOperations::add method
 TEST_F(MathOperationsTest, AddTest) {
-    int a = 5;
-    int b = 3;
+  int a = 5;
+  int b = 3;
 
-    Mgtt::Core::MathOperations mathOperations;
-    int result = mathOperations.add(a, b);
-    EXPECT_EQ(result, 8);
+  int result = add(a, b);
+  EXPECT_EQ(result, 8);
 }
 
 // Test case for MathOperations::subtract method
 TEST_F(MathOperationsTest, SubtractTest) {
-    int a = 5;
-    int b = 3;
+  int a = 5;
+  int b = 3;
 
-    Mgtt::Core::MathOperations mathOperations;
-    int result = mathOperations.subtract(a, b);
-    EXPECT_EQ(result, 2); // Expect the result to be 2
+  int result = subtract(a, b);
+  EXPECT_EQ(result, 2);  // Expect the result to be 2
 }
 
 // Test case for MathOperations::multiply method
 TEST_F(MathOperationsTest, MultiplyTest) {
-    int a = 5;
-    int b = 3;
+  int a = 5;
+  int b = 3;
 
-    Mgtt::Core::MathOperations mathOperations;
-    int result = mathOperations.multiply(a, b);
-    EXPECT_EQ(result, 15); // Expect the result to be 15
+  int result = multiply(a, b);
+  EXPECT_EQ(result, 15);  // Expect the result to be 15
 }
 
 // Test case for MathOperations::divide method
 TEST_F(MathOperationsTest, DivideTest) {
-    float a = 10.0f;
-    float b = 2.0f;
+  float a = 10.0f;
+  float b = 2.0f;
 
-    Mgtt::Core::MathOperations mathOperations;
-    float result = mathOperations.divide(a, b);
-    EXPECT_FLOAT_EQ(result, 5.0f); // Expect the result to be 5.0
+  float result = divide(a, b);
+  EXPECT_FLOAT_EQ(result, 5.0f);  // Expect the result to be 5.0
 }
 
 // Test fixture for Circle tests
 class CircleTest : public ::testing::Test {
-protected:
-    void SetUp() override {}
-    void TearDown() override {}
+ protected:
+  void SetUp() override {}
+  void TearDown() override {}
 };
 
 // Test case for Circle::getArea method
 TEST_F(CircleTest, GetAreaTest) {
-    float radius = 5.0f;
-    float expectedArea = M_PI * radius * radius;
+  float radius = 5.0f;
+  float expectedArea = M_PI * radius * radius;
 
-    Mgtt::Core::Circle circle(radius);
-    float area = circle.getArea();
-    EXPECT_FLOAT_EQ(area, expectedArea); // Expect the area to be pi * r^2
+  float area = getCircleArea(radius);
+  EXPECT_FLOAT_EQ(area, expectedArea);  // Expect the area to be pi * r^2
 }
 
 // Test case for Circle::getCircumference method
 TEST_F(CircleTest, GetCircumferenceTest) {
-    float radius = 5.0f;
-    float expectedCircumference = 2 * M_PI * radius;
+  float radius = 5.0f;
+  float expectedCircumference = 2 * M_PI * radius;
 
-    Mgtt::Core::Circle circle(radius);
-    float circumference = circle.getCircumference();
-    EXPECT_FLOAT_EQ(circumference, expectedCircumference); // Expect the circumference to be 2 * pi * r
+  float circumference = getCircleCircumference(radius);
+  EXPECT_FLOAT_EQ(
+      circumference,
+      expectedCircumference);  // Expect the circumference to be 2 * pi * r
 }
 
-#endif // End of MGTT_CORE_TEST
+#endif  // End of MGTT_CORE_TEST

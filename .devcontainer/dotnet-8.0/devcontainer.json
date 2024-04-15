@@ -1,0 +1,9 @@
+{
+    // Docker images officially provided by Microsoft that can utilized as base images
+    // https://hub.docker.com/_/microsoft-vscode-devcontainers
+    "name": "Tools for C# .Net 8.0 repos",
+    "image": "mcr.microsoft.com/vscode/devcontainers/dotnet:8.0",
+    // Features to add to the dev container. More info: https://containers.dev/features
+    "postCreateCommand": "bash .devcontainer/dotnet-8.0/scripts/install-dependencies.sh",
+    "remoteUser": "root"
+}

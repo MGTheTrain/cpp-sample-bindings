@@ -22,71 +22,15 @@
 
 #pragma once
 
+#include <cstdint>
+#include <stdexcept>
 #define M_PI 3.141
 
-namespace Mgtt::Core {
-    /**
-     * @brief A class providing basic mathematical operations.
-     */
-    class MathOperations {
-    public:
-        /**
-         * @brief Adds two integers.
-         * @param a The first integer.
-         * @param b The second integer.
-         * @return The sum of a and b.
-         */
-        int add(int a, int b);
-
-        /**
-         * @brief Subtracts one integer from another.
-         * @param a The integer to subtract from.
-         * @param b The integer to subtract.
-         * @return The result of subtracting b from a.
-         */
-        int subtract(int a, int b);
-
-        /**
-         * @brief Multiplies two integers.
-         * @param a The first integer.
-         * @param b The second integer.
-         * @return The product of a and b.
-         */
-        int multiply(int a, int b);
-
-        /**
-         * @brief Divides one float by another.
-         * @param a The float to divide.
-         * @param b The divisor.
-         * @return The result of dividing a by b.
-         * @throw Division by zero error if b is zero.
-         */
-        float divide(float a, float b);
-    };
-
-    /**
-     * @brief A class representing a circle.
-     */
-    class Circle {
-    private:
-        float radius; /**< The radius of the circle. */
-    public:
-        /**
-         * @brief Constructs a Circle object with the given radius.
-         * @param radius The radius of the circle.
-         */
-        Circle(float radius);
-
-        /**
-         * @brief Calculates the area of the circle.
-         * @return The area of the circle.
-         */
-        float getArea();
-
-        /**
-         * @brief Calculates the circumference of the circle.
-         * @return The circumference of the circle.
-         */
-        float getCircumference();
-    };
+extern "C" {
+int32_t add(int32_t a, int32_t b);
+int32_t subtract(int32_t a, int32_t b);
+int32_t multiply(int32_t a, int32_t b);
+float divide(float a, float b);
+float getCircleArea(float radius);
+float getCircleCircumference(float radius);
 }

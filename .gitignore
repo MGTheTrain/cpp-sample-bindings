@@ -8,3 +8,6 @@ secrets.cfg
 *.deb
 *.zip
 *.tar
+*.dll
+*.so
+__pycache__
