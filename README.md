@@ -18,10 +18,12 @@ TBD
 ## Features
 
 - [x] Modular code base
-- [x] Sample Python wrappers refering to C++ compiled source code resulting in shared libraries 
+- [x] Sample Python wrappers refering to C++ compiled source code   resulting in shared libraries 
 - [ ] Sample Rust wrappers refering to C++ compiled source code resulting in shared libraries 
 - [ ] Sample Go wrappers refering to C++ compiled source code resulting in shared libraries 
 - [ ] Sample C# wrappers refering to C++ compiled source code resulting in shared libraries
+- [ ] C++ audio module **(Optional, Experimental)**
+- [ ] C++ video module **(Optional, Experimental)**
 
 ## Getting started
 
