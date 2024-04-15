@@ -1,10 +1,13 @@
 import ctypes
 import sys
+import os
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
 if sys.platform.startswith('win32'):
-    core_lib = ctypes.cdll.LoadLibrary('./core__wrapper.dll')
+    core_lib = ctypes.cdll.LoadLibrary(os.path.join(dir_path, './core_wrapper.dll'))
 elif sys.platform.startswith('linux'):
-    core_lib = ctypes.cdll.LoadLibrary('./core__wrapper.so')
+    core_lib = ctypes.cdll.LoadLibrary(os.path.join(dir_path, './core_wrapper.so'))
 else:
     raise OSError("Unsupported platform")
 
