@@ -10,3 +10,4 @@ secrets.cfg
 *.tar
 *.dll
 *.so
+__pycache__
