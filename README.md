@@ -13,7 +13,7 @@ A collection of sample code snippets demonstrating how to create bindings for va
 
 ## Reference
 
-TBD
+- [Python Bindings: Calling C or C++ From Python](https://realpython.com/python-bindings-overview/)
 
 ## Features
 
