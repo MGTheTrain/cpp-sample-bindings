@@ -8,7 +8,7 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 
 lib_name=""
 if sys.platform.startswith('win32'):
-    lib_name=os.path.join(dir_path, './core_wrapper.dll') # issues with DLL's -> prefer unix systems
+    lib_name=os.path.join(dir_path, './core_wrapper.dll') # issues with DLL's -> prefer dev container on WIndows or unix systems 
     core_lib = ctypes.cdll.LoadLibrary(lib_name)
 elif sys.platform.startswith('linux'):
     lib_name=os.path.join(dir_path, './libcore_wrapper.so')
