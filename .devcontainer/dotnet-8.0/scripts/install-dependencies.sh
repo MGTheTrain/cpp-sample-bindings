@@ -4,7 +4,7 @@ set -euo pipefail
 
 apt-get update
 apt-get install -y cmake python3 python3-pip
-pip3 install clang-format cpplint
+#pip3 install clang-format cpplint
 
 cd /tmp/
 # vcpkg
