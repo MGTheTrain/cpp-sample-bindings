@@ -2,12 +2,17 @@ import ctypes
 import sys
 import os
 
+# Refer to: https://realpython.com/python-bindings-overview/#how-its-installed
+
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
+lib_name=""
 if sys.platform.startswith('win32'):
-    core_lib = ctypes.cdll.LoadLibrary(os.path.join(dir_path, './core_wrapper.dll'))
+    lib_name=os.path.join(dir_path, './core_wrapper.dll')
+    core_lib = ctypes.cdll.LoadLibrary(lib_name)
 elif sys.platform.startswith('linux'):
-    core_lib = ctypes.cdll.LoadLibrary(os.path.join(dir_path, './core_wrapper.so'))
+    lib_name=os.path.join(dir_path, './core_wrapper.so')
+    core_lib = ctypes.cdll.LoadLibrary(lib_name)
 else:
     raise OSError("Unsupported platform")
 
