@@ -18,6 +18,7 @@ TBD
 ## Features
 
 - [x] Modular code base
+- [x] CI workflows for QA
 - [x] Sample Python wrappers refering to C++ compiled source code   resulting in shared libraries 
 - [ ] Sample Rust wrappers refering to C++ compiled source code resulting in shared libraries 
 - [ ] Sample Go wrappers refering to C++ compiled source code resulting in shared libraries 
