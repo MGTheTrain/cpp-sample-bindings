@@ -37,4 +37,4 @@ if __name__ == "__main__":
     main(args.path)
 
 # 0. Copy on unix systems the libcore_wrapper.so to a desired destination folder
-# 1. Run `python main.py --path libcore_wrapper.so`
+# 1. Run `python main.py --path <path to libcore_wrapper.so>
