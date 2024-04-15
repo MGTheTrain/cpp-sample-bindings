@@ -91,3 +91,52 @@ namespace Mgtt::Core {
         return 2 * M_PI * radius;
     }
 }
+
+/**
+ * C++ wrapper
+*/
+extern "C" {
+    int32_t add(int32_t a, int32_t b) {
+        Mgtt::Core::MathOperations math;
+        return math.add(a, b);
+    }
+
+    int32_t subtract(int32_t a, int32_t b) {
+        Mgtt::Core::MathOperations math;
+        return math.subtract(a, b);
+    }
+
+    int32_t multiply(int32_t a, int32_t b) {
+        Mgtt::Core::MathOperations math;
+        return math.multiply(a, b);
+    }
+
+    float divide(float a, float b) {
+        Mgtt::Core::MathOperations math;
+        try {
+            return math.divide(a, b);
+        } catch (const char* error) {
+            throw std::runtime_error(error);
+        }
+    }
+
+    void* create_circle(float radius) {
+        return new Mgtt::Core::Circle(radius);
+    }
+
+    float get_area(void* circle_ptr) {
+        Mgtt::Core::Circle* circle = reinterpret_cast<Mgtt::Core::Circle*>(circle_ptr);
+        return circle->getArea();
+    }
+
+    float get_circumference(void* circle_ptr) {
+        Mgtt::Core::Circle* circle = reinterpret_cast<Mgtt::Core::Circle*>(circle_ptr);
+        return circle->getCircumference();
+    }
+
+    void delete_circle(void* circle_ptr) {
+        Mgtt::Core::Circle* circle = reinterpret_cast<Mgtt::Core::Circle*>(circle_ptr);
+        delete circle;
+    }
+
+}

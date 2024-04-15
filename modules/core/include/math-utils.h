@@ -22,6 +22,8 @@
 
 #pragma once
 
+#include <cstdint>
+#include <stdexcept>
 #define M_PI 3.141
 
 namespace Mgtt::Core {
