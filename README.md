@@ -75,4 +75,4 @@ Navigate to the [bindings python folder](./bindings/python) after C++ source cod
 
 #### C#
 
-Navigate to the [bindings c# folder](./bindings/c#) after C++ source code compilation and follow comments in [Program.cs](./bindings/c#/Mgtt.CoreWrapper/Program.cs)
+Navigate to the [bindings c# folder](./bindings/csharp) after C++ source code compilation and follow comments in [Program.cs](./bindings/csharp/Mgtt.CoreWrapper/Program.cs)
