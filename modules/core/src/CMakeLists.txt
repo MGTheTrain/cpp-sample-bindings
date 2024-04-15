@@ -30,5 +30,6 @@ set(CORE_SRC
 )   
 
 add_library(${TARGET} STATIC ${CORE_SRC})
+add_library(${TARGET}_wrapper SHARED ${CORE_SRC}) # required for Python bindings
 
 install(TARGETS ${TARGET})
