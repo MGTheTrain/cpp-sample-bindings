@@ -22,7 +22,7 @@ A collection of sample code snippets demonstrating how to create bindings for va
 - [x] Sample Python wrappers refering to C++ compiled source code   resulting in shared libraries 
 - [ ] Sample Rust wrappers refering to C++ compiled source code resulting in shared libraries 
 - [ ] Sample Go wrappers refering to C++ compiled source code resulting in shared libraries 
-- [ ] Sample C# wrappers refering to C++ compiled source code resulting in shared libraries
+- [x] Sample C# wrappers refering to C++ compiled source code resulting in shared libraries
 - [ ] C++ audio module **(Optional, Experimental)**
 - [ ] C++ video module **(Optional, Experimental)**
 
@@ -72,3 +72,7 @@ cd devops\scripts\ps1
 #### Python 
 
 Navigate to the [bindings python folder](./bindings/python) after C++ source code compilation and run `python main.py --path <path to libcore_wrapper.so>`
+
+#### C#
+
+Navigate to the [bindings c# folder](./bindings/csharp) after C++ source code compilation and follow comments in [Program.cs](./bindings/csharp/Mgtt.CoreWrapper/Program.cs)

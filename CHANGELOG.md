@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 15-04-2024
+
+### Added
+
+- [Feature] Sample C# wrappers refering to C++ compiled source code resulting in shared libraries
+
+### Fixed 
+
+- Rename, comment out lines and install missing apt dependencies in `install-dependencies.sh` bash scripts
+
 ## [0.1.0] - 15-04-2024
 
 ### Added
