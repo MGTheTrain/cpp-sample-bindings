@@ -18,10 +18,10 @@ TBD
 ## Features
 
 - [x] Modular code base
-- [x] Sample Python wrappers refering to C++ compiled shared libraries 
-- [ ] Sample Rust wrappers refering to C++ source code or compiled shared libraries
-- [ ] Sample Go wrappers refering to C++ source code or compiled shared libraries
-- [ ] Sample C# wrappers refering to C++ compiled shared libraries
+- [x] Sample Python wrappers refering to C++ compiled source code resulting in shared libraries 
+- [ ] Sample Rust wrappers refering to C++ compiled source code resulting in shared libraries 
+- [ ] Sample Go wrappers refering to C++ compiled source code resulting in shared libraries 
+- [ ] Sample C# wrappers refering to C++ compiled source code resulting in shared libraries
 
 ## Getting started
 
