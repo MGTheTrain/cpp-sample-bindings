@@ -27,10 +27,10 @@
 #define M_PI 3.141
 
 extern "C" {
-    int32_t add(int32_t a, int32_t b);
-    int32_t subtract(int32_t a, int32_t b);
-    int32_t multiply(int32_t a, int32_t b);
-    float divide(float a, float b);
-    float getCircleArea(float radius);
-    float getCircleCircumference(float radius);
+int32_t add(int32_t a, int32_t b);
+int32_t subtract(int32_t a, int32_t b);
+int32_t multiply(int32_t a, int32_t b);
+float divide(float a, float b);
+float getCircleArea(float radius);
+float getCircleCircumference(float radius);
 }
