@@ -13,3 +13,4 @@ secrets.cfg
 __pycache__
 obj
 bin
+Cargo.lock
