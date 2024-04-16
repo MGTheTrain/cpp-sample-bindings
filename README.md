@@ -14,6 +14,7 @@ A collection of sample code snippets demonstrating how to create bindings for va
 ## Reference
 
 - [Python Bindings: Calling C or C++ From Python](https://realpython.com/python-bindings-overview/)
+- [Refer to CXX — safe FFI between Rust and C++](https://crates.io/crates/cxx)
 
 ## Features
 
