@@ -50,5 +50,5 @@ class Program
 }
 
 // 0. Execute `dotnet build`
-// 0. Copy on unix systems the libcore_wrapper.so to the `bindings/c#/Mgtt.CoreWrapper/bin/Debug/net8.0` folder
-// 1. Run `dotnet run`
+// 1. Copy on unix systems the libcore_wrapper.so to the `bindings/c#/Mgtt.CoreWrapper/bin/Debug/net8.0` folder
+// 2. Run `dotnet run`

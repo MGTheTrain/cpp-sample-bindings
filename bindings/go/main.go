@@ -30,4 +30,5 @@ func main() {
 }
 
 // 0. `export LD_LIBRARY_PATH=/workspaces/cpp-sample-bindings/bindings/go/libcore_wrapper.so:$LD_LIBRARY_PATH`
-// 1. Run executable `go run main.go`
+// 1. Copy on unix systems the libcore_wrapper.so to this folder
+// 2. Run executable `go run main.go`
