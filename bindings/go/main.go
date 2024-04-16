@@ -28,7 +28,7 @@ package main
 // #include <math-utils.h>
 import "C"
 import (
-    "fmt"
+	"fmt"
 )
 
 func main() {
@@ -51,7 +51,3 @@ func main() {
 	circumference := C.getCircleCircumference(C.float(radius))
 	fmt.Println("Circle circumference:", circumference)
 }
-
-// 0. Copy in the devcontainer the libcore_wrapper.so to this folder
-// 1. In the devcontainer `export LD_LIBRARY_PATH=/workspaces/cpp-sample-bindings/bindings/go/libcore_wrapper.so:$LD_LIBRARY_PATH`
-// 2. Run executable `go run main.go`

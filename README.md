@@ -71,12 +71,31 @@ cd devops\scripts\ps1
 
 #### Python 
 
-Navigate to the [bindings python folder](./bindings/python) after C++ source code compilation and run `python main.py --path <path to libcore_wrapper.so>`
+Run:
+
+```sh
+cd bindings/python
+python main.py --path <path to libcore_wrapper.so>
+```
 
 #### C#
 
-Navigate to the [bindings c# folder](./bindings/csharp) after C++ source code compilation and follow comments in [Program.cs](./bindings/csharp/Mgtt.CoreWrapper/Program.cs)
+Run:
+
+```sh
+cd bindings/csharp
+dotnet build
+# Copy on unix systems the libcore_wrapper.so to the `bindings/c#/Mgtt.CoreWrapper/bin/Debug/net8.0` folder
+dotnet run
+```
 
 #### Go
 
-Navigate to the [bindings go folder](./bindings/go) after C++ source code compilation and follow comments in [main.go](./bindings/go/main.go)
+Run:
+
+```sh
+cd bindings/go
+# Copy in the devcontainer the libcore_wrapper.so to this folder
+export LD_LIBRARY_PATH=/workspaces/cpp-sample-bindings/bindings/go/libcore_wrapper.so:$LD_LIBRARY_PATH
+go run main.go
+```
