@@ -76,3 +76,7 @@ Navigate to the [bindings python folder](./bindings/python) after C++ source cod
 #### C#
 
 Navigate to the [bindings c# folder](./bindings/csharp) after C++ source code compilation and follow comments in [Program.cs](./bindings/csharp/Mgtt.CoreWrapper/Program.cs)
+
+#### Go
+
+Navigate to the [bindings go folder](./bindings/go) after C++ source code compilation and follow comments in [main.go](./bindings/go/main.go)
