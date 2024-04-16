@@ -21,7 +21,7 @@ A collection of sample code snippets demonstrating how to create bindings for va
 - [x] Modular code base
 - [x] CI workflows for QA
 - [x] Sample Python wrappers refering to C++ compiled source code resulting in shared libraries 
-- [x] Sample Rust wrappers utilizing cxx and refering to C++ source code
+- [x] Sample Rust wrappers utilizing [cxx](https://crates.io/crates/cxx) and refering to C++ source code
 - [x] Sample Go wrappers refering to C++ compiled source code resulting in shared libraries 
 - [x] Sample C# wrappers refering to C++ compiled source code resulting in shared libraries
 - [ ] C++ audio module **(Optional, Experimental)**
