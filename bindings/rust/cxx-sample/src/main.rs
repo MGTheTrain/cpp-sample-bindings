@@ -14,6 +14,7 @@ mod ffi {
     }
 }
 
+// missing step: separate lib from app 
 fn main() {
     let a = 10;
     let b = 5;
