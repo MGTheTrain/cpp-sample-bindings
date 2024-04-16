@@ -71,7 +71,7 @@ cd devops\scripts\ps1
 
 #### Python 
 
-Run:
+After C++ source code compilation resuting in a shared library, run:
 
 ```sh
 cd bindings/python
@@ -80,7 +80,7 @@ python main.py --path <path to libcore_wrapper.so>
 
 #### C#
 
-Run:
+After C++ source code compilation resuting in a shared library, run:
 
 ```sh
 cd bindings/csharp
@@ -91,7 +91,7 @@ dotnet run
 
 #### Go
 
-Run:
+After C++ source code compilation resuting in a shared library, run:
 
 ```sh
 cd bindings/go
