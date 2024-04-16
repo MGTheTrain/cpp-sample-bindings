@@ -23,8 +23,9 @@
 package main
 
 // #cgo LDFLAGS: -L. -lcore_wrapper
+// #cgo CFLAGS: -I../../modules/core/include
 // #include <stdlib.h>
-// #include "math-utils.h"
+// #include <math-utils.h>
 import "C"
 import (
     "fmt"
@@ -51,6 +52,6 @@ func main() {
 	fmt.Println("Circle circumference:", circumference)
 }
 
-// 0. `export LD_LIBRARY_PATH=/workspaces/cpp-sample-bindings/bindings/go/libcore_wrapper.so:$LD_LIBRARY_PATH`
-// 1. Copy on unix systems the libcore_wrapper.so to this folder
+// 0. Copy in the devcontainer the libcore_wrapper.so to this folder
+// 1. In the devcontainer `export LD_LIBRARY_PATH=/workspaces/cpp-sample-bindings/bindings/go/libcore_wrapper.so:$LD_LIBRARY_PATH`
 // 2. Run executable `go run main.go`
