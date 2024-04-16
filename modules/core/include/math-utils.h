@@ -22,15 +22,20 @@
 
 #pragma once
 
-#include <cstdint>
-#include <stdexcept>
-#define M_PI 3.141
+#include <stdint.h>
 
+#ifdef __cplusplus
+#define M_PI 3.141
 extern "C" {
+#endif
+
 int32_t add(int32_t a, int32_t b);
 int32_t subtract(int32_t a, int32_t b);
 int32_t multiply(int32_t a, int32_t b);
 float divide(float a, float b);
 float getCircleArea(float radius);
 float getCircleCircumference(float radius);
+
+#ifdef __cplusplus
 }
+#endif
