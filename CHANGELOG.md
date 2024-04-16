@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 16-04-2024
+
+### Added
+
+- [Feature] Sample Go wrappers refering to C++ compiled source code resulting in shared libraries
+
+### Fixed 
+
+- comment out lines in [install-dependencies.sh](.devcontainer/go/scripts/install-dependencies.sh) bash scripts
+
 ## [0.2.0] - 15-04-2024
 
 ### Added
