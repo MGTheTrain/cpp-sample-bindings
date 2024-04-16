@@ -14,13 +14,14 @@ A collection of sample code snippets demonstrating how to create bindings for va
 ## Reference
 
 - [Python Bindings: Calling C or C++ From Python](https://realpython.com/python-bindings-overview/)
+- [CXX — safe FFI between Rust and C++](https://crates.io/crates/cxx)
 
 ## Features
 
 - [x] Modular code base
 - [x] CI workflows for QA
-- [x] Sample Python wrappers refering to C++ compiled source code   resulting in shared libraries 
-- [ ] Sample Rust wrappers refering to C++ compiled source code resulting in shared libraries 
+- [x] Sample Python wrappers refering to C++ compiled source code resulting in shared libraries 
+- [x] Sample Rust wrappers utilizing [cxx](https://crates.io/crates/cxx) and refering to C++ source code
 - [x] Sample Go wrappers refering to C++ compiled source code resulting in shared libraries 
 - [x] Sample C# wrappers refering to C++ compiled source code resulting in shared libraries
 - [ ] C++ audio module **(Optional, Experimental)**
@@ -71,12 +72,40 @@ cd devops\scripts\ps1
 
 #### Python 
 
-Navigate to the [bindings python folder](./bindings/python) after C++ source code compilation and run `python main.py --path <path to libcore_wrapper.so>`
+After C++ source code compilation resuting in a shared library, run:
+
+```sh
+cd bindings/python
+python main.py --path <path to libcore_wrapper.so>
+```
 
 #### C#
 
-Navigate to the [bindings c# folder](./bindings/csharp) after C++ source code compilation and follow comments in [Program.cs](./bindings/csharp/Mgtt.CoreWrapper/Program.cs)
+After C++ source code compilation resuting in a shared library, run:
+
+```sh
+cd bindings/csharp
+dotnet build
+# Copy on unix systems the libcore_wrapper.so to the `bindings/c#/Mgtt.CoreWrapper/bin/Debug/net8.0` folder
+dotnet run
+```
 
 #### Go
 
-Navigate to the [bindings go folder](./bindings/go) after C++ source code compilation and follow comments in [main.go](./bindings/go/main.go)
+After C++ source code compilation resuting in a shared library, run:
+
+```sh
+cd bindings/go
+# Copy in the devcontainer the libcore_wrapper.so to this folder
+export LD_LIBRARY_PATH=/workspaces/cpp-sample-bindings/bindings/go/libcore_wrapper.so:$LD_LIBRARY_PATH
+go run main.go
+```
+
+#### Rust
+
+Run (does not consider a shared library from compiled C++ source code):
+
+```sh
+cd bindings/rust
+cargo run
+```

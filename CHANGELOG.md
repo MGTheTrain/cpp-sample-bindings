@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 16-04-2024
+
+### Added
+
+- [Feature] Sample Rust wrappers utilizing [cxx](https://crates.io/crates/cxx) and refering to C++ source code
+
 ## [0.3.0] - 16-04-2024
 
 ### Added

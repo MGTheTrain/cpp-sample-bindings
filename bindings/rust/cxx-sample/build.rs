@@ -20,34 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package main
+fn main() {
+    cxx_build::bridge("src/main.rs")
+        .file("src/math-utils.cc")
+        .std("c++14")
+        .compile("cxxbridge-core");
 
-// #cgo LDFLAGS: -L. -lcore_wrapper
-// #cgo CFLAGS: -I../../modules/core/include
-// #include <stdlib.h>
-// #include <math-utils.h>
-import "C"
-import (
-	"fmt"
-)
-
-func main() {
-	resultAdd := int(C.add(10, 5))
-	fmt.Println("Addition result:", resultAdd)
-
-	resultSubtract := int(C.subtract(10, 5))
-	fmt.Println("Subtraction result:", resultSubtract)
-
-	resultMultiply := int(C.multiply(10, 5))
-	fmt.Println("Multiplication result:", resultMultiply)
-
-	resultDivide := C.divide(10.0, 2.0)
-	fmt.Println("Division result:", resultDivide)
-
-	radius := 5.0
-	area := C.getCircleArea(C.float(radius))
-	fmt.Println("Circle area:", area)
-
-	circumference := C.getCircleCircumference(C.float(radius))
-	fmt.Println("Circle circumference:", circumference)
+    println!("cargo:rerun-if-changed=src/main.rs");
+    println!("cargo:rerun-if-changed=src/math-utils.cc");
+    println!("cargo:rerun-if-changed=include/math-utils.h");
 }
