@@ -100,3 +100,12 @@ cd bindings/go
 export LD_LIBRARY_PATH=/workspaces/cpp-sample-bindings/bindings/go/libcore_wrapper.so:$LD_LIBRARY_PATH
 go run main.go
 ```
+
+#### Rust
+
+Run (does not consider a shared library from compiled C++ source code):
+
+```sh
+cd bindings/rust
+cargo run
+```
