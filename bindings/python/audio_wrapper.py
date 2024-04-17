@@ -87,6 +87,26 @@ class AudioWrapper:
         """
         return self.audio_lib.closeAudioFile(ctypes.byref(audio_data))
 
+class SF_INFO(ctypes.Structure):
+    """
+    Structure to hold information about an audio file.
+
+    Attributes:
+        frames (c_int64): Total frames.
+        samplerate (c_int): Sample rate.
+        channels (c_int): Number of channels.
+        format (c_int): Format of the audio data.
+        sections (c_int): Sections.
+        seekable (c_int): Seekable flag.
+    """
+    _fields_ = [
+        ("frames", ctypes.c_int64),   
+        ("samplerate", ctypes.c_int), 
+        ("channels", ctypes.c_int),   
+        ("format", ctypes.c_int),     
+        ("sections", ctypes.c_int),   
+        ("seekable", ctypes.c_int)    
+    ]
 
 class AudioData(ctypes.Structure):
     """
