@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 import ctypes
+import pyaudio
 
 class AudioWrapper:
     """
@@ -28,6 +29,8 @@ class AudioWrapper:
 
     Attributes:
         audio_lib (CDLL): The loaded audio library.
+        pyaudio (PyAudio): PyAudio instance.
+        audio_callback (PyAudio callback): The callback function for audio playback.
     """
 
     def __init__(self, path: str):
@@ -38,6 +41,8 @@ class AudioWrapper:
             path (str): The path to the audio library.
         """
         self.audio_lib = ctypes.cdll.LoadLibrary(path)
+        self.pyaudio = pyaudio.PyAudio()
+        self.audio_callback = self._audio_callback  # Set the callback function for audio playback
 
         self.audio_lib.loadAudioFile.argtypes = [ctypes.c_char_p, ctypes.POINTER(AudioData)]
         self.audio_lib.loadAudioFile.restype = ctypes.c_bool
@@ -53,7 +58,26 @@ class AudioWrapper:
                                                     ctypes.c_int, ctypes.c_void_p]
         self.audio_lib.playbackCallback.restype = ctypes.c_int
 
-    def load_audio_file(self, filename, audio_data):
+    def _audio_callback(self, in_data, frame_count, time_info, status):
+        """
+        PyAudio callback function for audio playback.
+
+        This function is called by PyAudio when it needs more audio data to play.
+
+        Args:
+            in_data: Input audio data (not used in playback).
+            frame_count (int): Number of frames requested for playback.
+            time_info (dict): Timing information for the callback.
+            status (int): Status flags indicating possible errors or other information.
+
+        Returns:
+            tuple: A tuple containing the audio data and a flag indicating whether playback is complete.
+        """
+        audio_data = ctypes.create_string_buffer(frame_count * ctypes.sizeof(ctypes.c_float))
+        status = self.audio_lib.playbackCallback(None, audio_data, frame_count, None, 0, None)
+        return audio_data.raw, pyaudio.paContinue if status == 0 else pyaudio.paComplete
+
+    def load_audio_file(self, filename: str, audio_data: ctypes.POINTER(AudioData)) -> bool:
         """
         Load an audio file using the audio library.
 
@@ -66,7 +90,7 @@ class AudioWrapper:
         """
         return self.audio_lib.loadAudioFile(filename.encode('utf-8'), ctypes.byref(audio_data))
 
-    def start_playback(self, audio_data):
+    def start_playback(self, audio_data: ctypes.POINTER(AudioData)) -> bool:
         """
         Start playback of the loaded audio file using the audio library.
 
@@ -76,16 +100,28 @@ class AudioWrapper:
         Returns:
             bool: True if playback was successfully started, False otherwise.
         """
-        return self.audio_lib.startPlayback(ctypes.byref(audio_data))
+        stream = self.pyaudio.open(
+            format=self.pyaudio.get_format_from_width(4),  # 4 bytes per float
+            channels=audio_data.info.channels,
+            rate=audio_data.info.samplerate,
+            output=True,
+            stream_callback=self.audio_callback
+        )
+        stream.start_stream()
+        return True
 
-    def close_audio_file(self, audio_data):
+    def close_audio_file(self, audio_data: ctypes.POINTER(AudioData)):
         """
         Close the loaded audio file using the audio library.
 
         Args:
             audio_data (AudioData): The AudioData structure containing the audio data to close.
         """
-        return self.audio_lib.closeAudioFile(ctypes.byref(audio_data))
+        # Close the PyAudio stream
+        self.pyaudio.terminate()
+        # Close the audio file using the audio library
+        self.audio_lib.closeAudioFile(ctypes.byref(audio_data))
+
 
 class SF_INFO(ctypes.Structure):
     """
@@ -138,29 +174,6 @@ class PaStreamCallbackTimeInfo(ctypes.Structure):
         ("currentTime", ctypes.c_double),
         ("outputBufferDacTime", ctypes.c_double)
     ]
-
-
-class SF_INFO(ctypes.Structure):
-    """
-    Structure to hold information about an audio file.
-
-    Attributes:
-        frames (c_int): Total frames.
-        samplerate (c_int): Sample rate.
-        channels (c_int): Number of channels.
-        format (c_int): Format of the audio data.
-        sections (c_int): Sections.
-        seekable (c_int): Seekable flag.
-    """
-    _fields_ = [
-        ("frames", ctypes.c_int),
-        ("samplerate", ctypes.c_int),
-        ("channels", ctypes.c_int),
-        ("format", ctypes.c_int),
-        ("sections", ctypes.c_int),
-        ("seekable", ctypes.c_int)
-    ]
-
 
 def playback_callback(input, output, frame_count, time_info, status_flags, user_data):
     """

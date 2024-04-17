@@ -56,7 +56,7 @@ class CoreWrapper:
         self.core_lib.getCircleCircumference.restype = ctypes.c_float
         self.core_lib.getCircleCircumference.argtypes = [ctypes.c_float]
 
-    def add(self, a, b):
+    def add(self, a: int, b: int) -> int:
         """
         Add two integers using the core library.
 
@@ -69,7 +69,7 @@ class CoreWrapper:
         """
         return self.core_lib.add(a, b)
 
-    def subtract(self, a, b):
+    def subtract(self, a: int, b: int) -> int:
         """
         Subtract two integers using the core library.
 
@@ -82,7 +82,7 @@ class CoreWrapper:
         """
         return self.core_lib.subtract(a, b)
 
-    def multiply(self, a, b):
+    def multiply(self, a: int, b: int) -> int:
         """
         Multiply two integers using the core library.
 
@@ -95,7 +95,7 @@ class CoreWrapper:
         """
         return self.core_lib.multiply(a, b)
 
-    def divide(self, a, b):
+    def divide(self, a: float, b: float) -> float:
         """
         Divide two floats using the core library.
 
@@ -108,7 +108,7 @@ class CoreWrapper:
         """
         return self.core_lib.divide(a, b)
 
-    def get_circle_area(self, radius):
+    def get_circle_area(self, radius: float) -> float:
         """
         Calculate the area of a circle using the core library.
 
@@ -120,7 +120,7 @@ class CoreWrapper:
         """
         return self.core_lib.getCircleArea(radius)
 
-    def get_circle_circumference(self, radius):
+    def get_circle_circumference(self, radius: float) -> float:
         """
         Calculate the circumference of a circle using the core library.
 
@@ -131,3 +131,4 @@ class CoreWrapper:
             float: The circumference of the circle.
         """
         return self.core_lib.getCircleCircumference(radius)
+
