@@ -20,6 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <portaudio.h>
 #include <sndfile.h>
 
@@ -103,3 +107,6 @@ static int playbackCallback(const void *input, void *output,
                             unsigned long frameCount,
                             const PaStreamCallbackTimeInfo *timeInfo,
                             PaStreamCallbackFlags statusFlags, void *userData);
+#ifdef __cplusplus
+}
+#endif
