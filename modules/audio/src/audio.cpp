@@ -51,47 +51,45 @@ bool loadAudioFile(const char *filename, AudioData *audioData) {
  * @return true if playback was successfully started, false otherwise.
  */
 bool startPlayback(AudioData *audioData) {
-  PaError err;
+  PaError err = Pa_Initialize();
+    if (err != paNoError) {
+        std::cerr << "PortAudio error: " << Pa_GetErrorText(err) << std::endl;
+        return false;
+    }
 
-  err = Pa_Initialize();
-  if (err != paNoError) {
-    std::cerr << "PortAudio error: " << Pa_GetErrorText(err) << std::endl;
-    return false;
-  }
+    PaStreamParameters outputParameters;
+    outputParameters.device = Pa_GetDefaultOutputDevice();
+    if (outputParameters.device == paNoDevice) {
+        std::cerr << "Error: No default output device." << std::endl;
+        return false;
+    }
+    outputParameters.channelCount = audioData->info.channels;
+    outputParameters.sampleFormat = paFloat32;
+    outputParameters.suggestedLatency =
+        Pa_GetDeviceInfo(outputParameters.device)->defaultHighOutputLatency;
+    outputParameters.hostApiSpecificStreamInfo = nullptr;
 
-  PaStreamParameters outputParameters;
-  outputParameters.device = Pa_GetDefaultOutputDevice();
-  if (outputParameters.device == paNoDevice) {
-    std::cerr << "Error: No default output device." << std::endl;
-    return false;
-  }
-  outputParameters.channelCount = audioData->info.channels;
-  outputParameters.sampleFormat = paFloat32;
-  outputParameters.suggestedLatency =
-      Pa_GetDeviceInfo(outputParameters.device)->defaultHighOutputLatency;
-  outputParameters.hostApiSpecificStreamInfo = nullptr;
+    err = Pa_OpenStream(&audioData->stream,
+                        nullptr,  // No input
+                        &outputParameters, audioData->info.samplerate, FRAMES_PER_BUFFER,
+                        paClipOff,  // No clipping
+                        playbackCallback,
+                        audioData);
 
-  err = Pa_OpenStream(&audioData->stream,
-                      nullptr,  // No input
-                      &outputParameters, SAMPLE_RATE, FRAMES_PER_BUFFER,
-                      paClipOff,  // No clipping
-                      nullptr,    // No callback
-                      nullptr);   // No user data
+    if (err != paNoError) {
+        std::cerr << "PortAudio error: " << Pa_GetErrorText(err) << std::endl;
+        Pa_Terminate();
+        return false;
+    }
 
-  if (err != paNoError) {
-    std::cerr << "PortAudio error: " << Pa_GetErrorText(err) << std::endl;
-    Pa_Terminate();
-    return false;
-  }
+    err = Pa_StartStream(audioData->stream);
+    if (err != paNoError) {
+        std::cerr << "PortAudio error: " << Pa_GetErrorText(err) << std::endl;
+        Pa_Terminate();
+        return false;
+    }
 
-  err = Pa_StartStream(audioData->stream);
-  if (err != paNoError) {
-    std::cerr << "PortAudio error: " << Pa_GetErrorText(err) << std::endl;
-    Pa_Terminate();
-    return false;
-  }
-
-  return true;
+    return true;
 }
 
 /**
@@ -108,4 +106,41 @@ void closeAudioFile(AudioData *audioData) {
   Pa_CloseStream(audioData->stream);
   Pa_Terminate();
   sf_close(audioData->file);
+}
+
+/**
+ * @brief Callback function for audio playback.
+ *
+ * This function is called by PortAudio when it needs more audio data to play. 
+ * It reads audio data from the file into the output buffer.
+ *
+ * @param input Pointer to the input buffer (not used in playback).
+ * @param output Pointer to the output buffer where audio data should be written.
+ * @param frameCount Number of frames requested for playback.
+ * @param timeInfo Pointer to timing information for the callback (not used in this function).
+ * @param statusFlags Flags indicating possible errors or other information from PortAudio.
+ * @param userData Pointer to user data provided when the stream was opened.
+ *                 In this function, it should be a pointer to the AudioData struct.
+ * 
+ * @return paContinue if playback should continue, paComplete if playback is complete.
+ */
+int playbackCallback(const void *input, void *output,
+                            unsigned long frameCount,
+                            const PaStreamCallbackTimeInfo* timeInfo,
+                            PaStreamCallbackFlags statusFlags,
+                            void *userData) {
+    float           *out;
+    AudioData       *audioData = (AudioData*)userData;
+    sf_count_t      num_read;
+
+    out = (float*)output;
+    memset(out, 0, sizeof(float) * frameCount * audioData->info.channels);
+
+    num_read = sf_read_float(audioData->file, out, frameCount * audioData->info.channels);
+    
+    if (num_read < frameCount) {
+        return paComplete;
+    }
+    
+    return paContinue;
 }
