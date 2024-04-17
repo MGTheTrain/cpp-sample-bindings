@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 17-04-2024
+
+### Added
+
+- [Feature] C++ audio module **(Optional, Experimental)**. **NOTE:** Does not include working bindings. Attempts were made for [audio_wrapper.py](./bindings/python/audio_wrapper.py)
+
 ## [0.4.0] - 16-04-2024
 
 ### Added

@@ -18,18 +18,5 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-cmake_minimum_required(VERSION 3.10)
-
-set(TARGET core)
-project(${TARGET})
-
-include_directories(${PROJECT_SOURCE_DIR}/../include)
-
-set(CORE_SRC 
-    math-utils.cpp
-)   
-
-add_library(${TARGET} STATIC ${CORE_SRC})
-add_library(${TARGET}_wrapper SHARED ${CORE_SRC}) # required for bindings
-
-install(TARGETS ${TARGET})
+add_subdirectory(audio-player)
+# add_subdirectory(video-player)
