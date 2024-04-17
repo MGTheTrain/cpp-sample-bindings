@@ -20,15 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include <portaudio.h>
 #include <sndfile.h>
 
 #include <cstring>
 #include <iostream>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define SAMPLE_RATE (44100)
 #define FRAMES_PER_BUFFER (64)
