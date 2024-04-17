@@ -30,8 +30,9 @@
 #define FRAMES_PER_BUFFER (64)
 
 /**
- * @note Essential code snippets from: https://github.com/hosackm/wavplayer/blob/master/src/wavplay.c
-*/
+ * @note Essential code snippets from:
+ * https://github.com/hosackm/wavplayer/blob/master/src/wavplay.c
+ */
 
 /**
  * @brief Struct to hold audio data, including file handle, information, and
@@ -80,21 +81,25 @@ void closeAudioFile(AudioData *audioData);
 /**
  * @brief Callback function for audio playback.
  *
- * This function is called by PortAudio when it needs more audio data to play. 
+ * This function is called by PortAudio when it needs more audio data to play.
  * It reads audio data from the file into the output buffer.
  *
  * @param input Pointer to the input buffer (not used in playback).
- * @param output Pointer to the output buffer where audio data should be written.
+ * @param output Pointer to the output buffer where audio data should be
+ * written.
  * @param frameCount Number of frames requested for playback.
- * @param timeInfo Pointer to timing information for the callback (not used in this function).
- * @param statusFlags Flags indicating possible errors or other information from PortAudio.
+ * @param timeInfo Pointer to timing information for the callback (not used in
+ * this function).
+ * @param statusFlags Flags indicating possible errors or other information from
+ * PortAudio.
  * @param userData Pointer to user data provided when the stream was opened.
- *                 In this function, it should be a pointer to the AudioData struct.
- * 
- * @return paContinue if playback should continue, paComplete if playback is complete.
+ *                 In this function, it should be a pointer to the AudioData
+ * struct.
+ *
+ * @return paContinue if playback should continue, paComplete if playback is
+ * complete.
  */
 static int playbackCallback(const void *input, void *output,
                             unsigned long frameCount,
-                            const PaStreamCallbackTimeInfo* timeInfo,
-                            PaStreamCallbackFlags statusFlags,
-                            void *userData);
+                            const PaStreamCallbackTimeInfo *timeInfo,
+                            PaStreamCallbackFlags statusFlags, void *userData);
