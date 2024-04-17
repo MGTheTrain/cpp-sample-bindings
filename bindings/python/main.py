@@ -27,6 +27,14 @@ from core_wrapper import CoreWrapper
 from audio_wrapper import AudioWrapper
 
 def main(path, wrapper_type, audio_file_path):
+    """
+    Main function to demonstrate the usage of wrapper libraries.
+
+    Args:
+        path (str): Path to the wrapper library.
+        wrapper_type (str): Type of wrapper to use: 'core' or 'audio'.
+        audio_file_path (str): Path to the audio file (required if wrapper_type is 'audio').
+    """
     abs_path = os.path.realpath(path)
 
     if wrapper_type == 'core':

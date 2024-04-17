@@ -23,7 +23,20 @@
 import ctypes
 
 class AudioWrapper:
+    """
+    A wrapper class for an audio library implemented in C/C++ using ctypes.
+
+    Attributes:
+        audio_lib (CDLL): The loaded audio library.
+    """
+
     def __init__(self, path: str):
+        """
+        Initialize the AudioWrapper instance.
+
+        Args:
+            path (str): The path to the audio library.
+        """
         self.audio_lib = ctypes.cdll.LoadLibrary(path)
 
         self.audio_lib.loadAudioFile.argtypes = [ctypes.c_char_p, ctypes.POINTER(AudioData)]
@@ -41,29 +54,84 @@ class AudioWrapper:
         self.audio_lib.playbackCallback.restype = ctypes.c_int
 
     def load_audio_file(self, filename, audio_data):
+        """
+        Load an audio file using the audio library.
+
+        Args:
+            filename (str): The path to the audio file.
+            audio_data (AudioData): The AudioData structure to store the loaded audio data.
+
+        Returns:
+            bool: True if the audio file was successfully loaded, False otherwise.
+        """
         return self.audio_lib.loadAudioFile(filename.encode('utf-8'), ctypes.byref(audio_data))
 
     def start_playback(self, audio_data):
+        """
+        Start playback of the loaded audio file using the audio library.
+
+        Args:
+            audio_data (AudioData): The AudioData structure containing the loaded audio data.
+
+        Returns:
+            bool: True if playback was successfully started, False otherwise.
+        """
         return self.audio_lib.startPlayback(ctypes.byref(audio_data))
 
     def close_audio_file(self, audio_data):
+        """
+        Close the loaded audio file using the audio library.
+
+        Args:
+            audio_data (AudioData): The AudioData structure containing the audio data to close.
+        """
         return self.audio_lib.closeAudioFile(ctypes.byref(audio_data))
 
+
 class AudioData(ctypes.Structure):
+    """
+    Structure to hold audio data, including file handle, information, and playback stream.
+
+    Attributes:
+        file (c_void_p): File handle.
+        info (SF_INFO): Audio file information.
+        stream (c_void_p): Playback stream.
+    """
     _fields_ = [
         ("file", ctypes.c_void_p),
         ("info", SF_INFO),
         ("stream", ctypes.c_void_p)
     ]
 
+
 class PaStreamCallbackTimeInfo(ctypes.Structure):
+    """
+    Structure to hold timing information for the audio playback callback.
+
+    Attributes:
+        inputBufferAdcTime (c_double): Time of the input buffer.
+        currentTime (c_double): Current time.
+        outputBufferDacTime (c_double): Time of the output buffer.
+    """
     _fields_ = [
         ("inputBufferAdcTime", ctypes.c_double),
         ("currentTime", ctypes.c_double),
         ("outputBufferDacTime", ctypes.c_double)
     ]
 
+
 class SF_INFO(ctypes.Structure):
+    """
+    Structure to hold information about an audio file.
+
+    Attributes:
+        frames (c_int): Total frames.
+        samplerate (c_int): Sample rate.
+        channels (c_int): Number of channels.
+        format (c_int): Format of the audio data.
+        sections (c_int): Sections.
+        seekable (c_int): Seekable flag.
+    """
     _fields_ = [
         ("frames", ctypes.c_int),
         ("samplerate", ctypes.c_int),
@@ -73,5 +141,22 @@ class SF_INFO(ctypes.Structure):
         ("seekable", ctypes.c_int)
     ]
 
+
 def playback_callback(input, output, frame_count, time_info, status_flags, user_data):
+    """
+    Callback function for audio playback.
+
+    This function is called by the audio library when it needs more audio data to play.
+
+    Args:
+        input: Pointer to the input buffer (not used in playback).
+        output: Pointer to the output buffer where audio data should be written.
+        frame_count (int): Number of frames requested for playback.
+        time_info (PaStreamCallbackTimeInfo): Timing information for the callback.
+        status_flags (int): Flags indicating possible errors or other information.
+        user_data: Pointer to user data provided when the stream was opened.
+
+    Returns:
+        int: paContinue if playback should continue, paComplete if playback is complete.
+    """
     return AudioWrapper().audio_lib.playbackCallback(input, output, frame_count, ctypes.byref(time_info), status_flags, user_data)
