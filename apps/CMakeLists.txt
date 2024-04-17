@@ -18,5 +18,5 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-add_subdirectory(audio)
-# add_subdirectory(video)
+add_subdirectory(audio-player)
+# add_subdirectory(video-player)
