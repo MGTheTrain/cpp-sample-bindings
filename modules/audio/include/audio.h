@@ -34,8 +34,8 @@
  * playback stream.
  */
 typedef struct {
-  SNDFILE *file;   
-  SF_INFO info;    
+  SNDFILE *file;
+  SF_INFO info;
   PaStream *stream;
 } AudioData;
 
