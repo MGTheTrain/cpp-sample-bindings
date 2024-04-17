@@ -22,8 +22,8 @@
 
 #ifdef MGTT_AUDIO_TEST
 
-#include <gtest/gtest.h>
 #include <audio.h>
+#include <gtest/gtest.h>
 
 // Test fixture for audio functions
 class AudioPlaybackTest : public ::testing::Test {
@@ -57,4 +57,4 @@ TEST_F(AudioPlaybackTest, CloseAudioFileTest) {
   closeAudioFile(&audioData);
 }
 
-#endif 
+#endif
