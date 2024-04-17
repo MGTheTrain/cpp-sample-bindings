@@ -36,5 +36,14 @@ set(AUDIO_TEST_SRC
     entrypoint.cpp
     audio-test.cpp)                        
 add_executable(${TESTING_TARGET} ${AUDIO_TEST_SRC})
+if(WIN32)
+    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../../../assets/
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug/assets/)
+elseif(APPLE OR UNIX)
+    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../../../assets/
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/assets/)
+else()
+    message(WARNING "Unsupported platform")
+endif()
 target_link_libraries(${TESTING_TARGET} PRIVATE GTest::gtest GTest::gtest_main audio)
 add_test(NAME ${TESTING_TARGET} COMMAND $<TARGET_FILE:${TESTING_TARGET}>)
