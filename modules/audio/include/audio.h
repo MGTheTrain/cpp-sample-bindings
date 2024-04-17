@@ -34,9 +34,9 @@
  * playback stream.
  */
 typedef struct {
-  SNDFILE *file;    /**< Pointer to the opened audio file */
-  SF_INFO info;     /**< Information about the audio file */
-  PaStream *stream; /**< Pointer to the PortAudio stream for playback */
+  SNDFILE *file;   
+  SF_INFO info;    
+  PaStream *stream;
 } AudioData;
 
 /**
