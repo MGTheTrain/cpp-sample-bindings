@@ -35,7 +35,11 @@ set(AUDIO_SRC
 add_library(${TARGET} STATIC ${AUDIO_SRC})
 add_library(${TARGET}_wrapper SHARED ${AUDIO_SRC}) # required for bindings
 
-target_link_libraries(${TARGET} SndFile::sndfile portaudio)
-target_link_libraries(${TARGET}_wrapper SndFile::sndfile portaudio)
-
+if(APPLE)
+    target_link_libraries(${TARGET} SndFile::sndfile portaudio_static)
+    target_link_libraries(${TARGET}_wrapper SndFile::sndfile portaudio_static)
+else()
+    target_link_libraries(${TARGET} SndFile::sndfile portaudio)
+    target_link_libraries(${TARGET}_wrapper SndFile::sndfile portaudio)
+endif()
 install(TARGETS ${TARGET})
