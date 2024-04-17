@@ -23,6 +23,59 @@
 import ctypes
 import pyaudio
 
+
+class SF_INFO(ctypes.Structure):
+    """
+    Structure to hold information about an audio file.
+
+    Attributes:
+        frames (c_int64): Total frames.
+        samplerate (c_int): Sample rate.
+        channels (c_int): Number of channels.
+        format (c_int): Format of the audio data.
+        sections (c_int): Sections.
+        seekable (c_int): Seekable flag.
+    """
+    _fields_ = [
+        ("frames", ctypes.c_int64),   
+        ("samplerate", ctypes.c_int), 
+        ("channels", ctypes.c_int),   
+        ("format", ctypes.c_int),     
+        ("sections", ctypes.c_int),   
+        ("seekable", ctypes.c_int)    
+    ]
+
+class AudioData(ctypes.Structure):
+    """
+    Structure to hold audio data, including file handle, information, and playback stream.
+
+    Attributes:
+        file (c_void_p): File handle.
+        info (SF_INFO): Audio file information.
+        stream (c_void_p): Playback stream.
+    """
+    _fields_ = [
+        ("file", ctypes.c_void_p),
+        ("info", SF_INFO),
+        ("stream", ctypes.c_void_p)
+    ]
+
+
+class PaStreamCallbackTimeInfo(ctypes.Structure):
+    """
+    Structure to hold timing information for the audio playback callback.
+
+    Attributes:
+        inputBufferAdcTime (c_double): Time of the input buffer.
+        currentTime (c_double): Current time.
+        outputBufferDacTime (c_double): Time of the output buffer.
+    """
+    _fields_ = [
+        ("inputBufferAdcTime", ctypes.c_double),
+        ("currentTime", ctypes.c_double),
+        ("outputBufferDacTime", ctypes.c_double)
+    ]
+
 class AudioWrapper:
     """
     A wrapper class for an audio library implemented in C/C++ using ctypes.
@@ -101,7 +154,7 @@ class AudioWrapper:
             bool: True if playback was successfully started, False otherwise.
         """
         stream = self.pyaudio.open(
-            format=self.pyaudio.get_format_from_width(4),  # 4 bytes per float
+            format=self.pyaudio.get_format_from_width(4), 
             channels=audio_data.info.channels,
             rate=audio_data.info.samplerate,
             output=True,
@@ -117,63 +170,9 @@ class AudioWrapper:
         Args:
             audio_data (AudioData): The AudioData structure containing the audio data to close.
         """
-        # Close the PyAudio stream
         self.pyaudio.terminate()
-        # Close the audio file using the audio library
         self.audio_lib.closeAudioFile(ctypes.byref(audio_data))
 
-
-class SF_INFO(ctypes.Structure):
-    """
-    Structure to hold information about an audio file.
-
-    Attributes:
-        frames (c_int64): Total frames.
-        samplerate (c_int): Sample rate.
-        channels (c_int): Number of channels.
-        format (c_int): Format of the audio data.
-        sections (c_int): Sections.
-        seekable (c_int): Seekable flag.
-    """
-    _fields_ = [
-        ("frames", ctypes.c_int64),   
-        ("samplerate", ctypes.c_int), 
-        ("channels", ctypes.c_int),   
-        ("format", ctypes.c_int),     
-        ("sections", ctypes.c_int),   
-        ("seekable", ctypes.c_int)    
-    ]
-
-class AudioData(ctypes.Structure):
-    """
-    Structure to hold audio data, including file handle, information, and playback stream.
-
-    Attributes:
-        file (c_void_p): File handle.
-        info (SF_INFO): Audio file information.
-        stream (c_void_p): Playback stream.
-    """
-    _fields_ = [
-        ("file", ctypes.c_void_p),
-        ("info", SF_INFO),
-        ("stream", ctypes.c_void_p)
-    ]
-
-
-class PaStreamCallbackTimeInfo(ctypes.Structure):
-    """
-    Structure to hold timing information for the audio playback callback.
-
-    Attributes:
-        inputBufferAdcTime (c_double): Time of the input buffer.
-        currentTime (c_double): Current time.
-        outputBufferDacTime (c_double): Time of the output buffer.
-    """
-    _fields_ = [
-        ("inputBufferAdcTime", ctypes.c_double),
-        ("currentTime", ctypes.c_double),
-        ("outputBufferDacTime", ctypes.c_double)
-    ]
 
 def playback_callback(input, output, frame_count, time_info, status_flags, user_data):
     """
