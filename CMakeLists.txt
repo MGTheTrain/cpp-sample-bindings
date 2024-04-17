@@ -35,3 +35,4 @@ if(BUILD_TEST)
 endif()
 
 add_subdirectory(modules)
+add_subdirectory(apps)
