@@ -26,7 +26,7 @@ import os
 from core_wrapper import CoreWrapper
 from audio_wrapper import AudioWrapper
 
-def main(path, wrapper_type):
+def main(path, wrapper_type, audio_file_path):
     abs_path = os.path.realpath(path)
 
     if wrapper_type == 'core':
@@ -52,9 +52,8 @@ def main(path, wrapper_type):
         circumference = core_wr.get_circle_circumference(radius)
         print("Circle circumference:", circumference)
     elif wrapper_type == 'audio':
-        audio_wr = AudioWrapper()
+        audio_wr = AudioWrapper(abs_path)
         
-        audio_file_path = "assets/mp3/file_example_MP3_700KB.mp3"
         if not audio_wr.load_audio_file(audio_file_path):
             print("Failed to load audio file:", audio_file_path)
             return
@@ -71,11 +70,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument('--path', type=str, help='Path to the wrapper library')
     parser.add_argument('--wrapper', type=str, choices=['core', 'audio'], help='Select wrapper type: core or audio')
+    parser.add_argument('--audio_file_path', type=str, help='Path to the audio file')
     args = parser.parse_args()
 
     if not args.path:
         parser.error('Please provide the path to the wrapper library using --path')
     if not args.wrapper:
         parser.error('Please select the wrapper type using --wrapper')
+    if args.wrapper == 'audio' and not args.audio_file_path:
+        parser.error('Please provide the path to the audio file using --audio_file_path')
 
-    main(args.path, args.wrapper)
+    main(args.path, args.wrapper, args.audio_file_path)
