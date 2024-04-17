@@ -59,7 +59,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Install third-party brew dependencies
       run: |
-        brew install pkg-config cmake
+        brew install pkg-config cmake portaudio
     - name: Install vcpkg
       run: |
         git clone https://github.com/Microsoft/vcpkg.git
