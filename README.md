@@ -76,7 +76,7 @@ After C++ source code compilation resuting in a shared library, run:
 
 ```sh
 cd bindings/python
-python main.py --path <path to libcore_wrapper.so>
+python main.py --path <path to libcore_wrapper.so> --wrapper <core, audio> --audio_file_path <path to audio file if wrapper option 'audio' is selected>
 ```
 
 #### C#
