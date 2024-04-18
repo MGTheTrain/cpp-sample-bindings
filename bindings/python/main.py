@@ -24,7 +24,7 @@ import argparse
 import os
 
 from core_wrapper import CoreWrapper
-from audio_wrapper import AudioWrapper
+from audio_wrapper import AudioWrapper, AudioData
 
 def main(path, wrapper_type, audio_file_path):
     """
@@ -62,15 +62,16 @@ def main(path, wrapper_type, audio_file_path):
     elif wrapper_type == 'audio':
         audio_wr = AudioWrapper(abs_path)
         
-        if not audio_wr.load_audio_file(audio_file_path):
+        audio_data = AudioData()
+        if not audio_wr.load_audio_file(audio_file_path, audio_data):
             print("Failed to load audio file:", audio_file_path)
             return
     
-        if not audio_wr.start_playback():
+        if not audio_wr.start_playback(audio_data):
             print("Failed to start playback.")
             return
 
-        audio_wr.close_audio_file()
+        audio_wr.close_audio_file(audio_data)
     else:
         print("Unsupported wrapper type provided.")
 

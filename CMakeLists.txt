@@ -21,6 +21,7 @@
 cmake_minimum_required(VERSION 3.10)
 set(TARGET cpp-opengl-renderer)
 project(${TARGET})   
+set(CMAKE_CXX_STANDARD 11)
 
 option(BUILD_LIB "Compile module source files for static and shared libraries" ON)
 option(BUILD_TEST "Compile source files for test executable and link compiled libraries" ON)

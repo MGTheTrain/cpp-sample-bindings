@@ -21,8 +21,6 @@
 # SOFTWARE.
 
 import ctypes
-import pyaudio
-
 
 class SF_INFO(ctypes.Structure):
     """
@@ -60,30 +58,12 @@ class AudioData(ctypes.Structure):
         ("stream", ctypes.c_void_p)
     ]
 
-
-class PaStreamCallbackTimeInfo(ctypes.Structure):
-    """
-    Structure to hold timing information for the audio playback callback.
-
-    Attributes:
-        inputBufferAdcTime (c_double): Time of the input buffer.
-        currentTime (c_double): Current time.
-        outputBufferDacTime (c_double): Time of the output buffer.
-    """
-    _fields_ = [
-        ("inputBufferAdcTime", ctypes.c_double),
-        ("currentTime", ctypes.c_double),
-        ("outputBufferDacTime", ctypes.c_double)
-    ]
-
 class AudioWrapper:
     """
     A wrapper class for an audio library implemented in C/C++ using ctypes.
 
     Attributes:
         audio_lib (CDLL): The loaded audio library.
-        pyaudio (PyAudio): PyAudio instance.
-        audio_callback (PyAudio callback): The callback function for audio playback.
     """
 
     def __init__(self, path: str):
@@ -94,8 +74,6 @@ class AudioWrapper:
             path (str): The path to the audio library.
         """
         self.audio_lib = ctypes.cdll.LoadLibrary(path)
-        self.pyaudio = pyaudio.PyAudio()
-        self.audio_callback = self._audio_callback  # Set the callback function for audio playback
 
         self.audio_lib.loadAudioFile.argtypes = [ctypes.c_char_p, ctypes.POINTER(AudioData)]
         self.audio_lib.loadAudioFile.restype = ctypes.c_bool
@@ -105,30 +83,6 @@ class AudioWrapper:
 
         self.audio_lib.closeAudioFile.argtypes = [ctypes.POINTER(AudioData)]
         self.audio_lib.closeAudioFile.restype = None
-
-        self.audio_lib.playbackCallback.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_ulong,
-                                                    ctypes.POINTER(PaStreamCallbackTimeInfo),
-                                                    ctypes.c_int, ctypes.c_void_p]
-        self.audio_lib.playbackCallback.restype = ctypes.c_int
-
-    def _audio_callback(self, in_data, frame_count, time_info, status):
-        """
-        PyAudio callback function for audio playback.
-
-        This function is called by PyAudio when it needs more audio data to play.
-
-        Args:
-            in_data: Input audio data (not used in playback).
-            frame_count (int): Number of frames requested for playback.
-            time_info (dict): Timing information for the callback.
-            status (int): Status flags indicating possible errors or other information.
-
-        Returns:
-            tuple: A tuple containing the audio data and a flag indicating whether playback is complete.
-        """
-        audio_data = ctypes.create_string_buffer(frame_count * ctypes.sizeof(ctypes.c_float))
-        status = self.audio_lib.playbackCallback(None, audio_data, frame_count, None, 0, None)
-        return audio_data.raw, pyaudio.paContinue if status == 0 else pyaudio.paComplete
 
     def load_audio_file(self, filename: str, audio_data: ctypes.POINTER(AudioData)) -> bool:
         """
@@ -153,15 +107,7 @@ class AudioWrapper:
         Returns:
             bool: True if playback was successfully started, False otherwise.
         """
-        stream = self.pyaudio.open(
-            format=self.pyaudio.get_format_from_width(4), 
-            channels=audio_data.info.channels,
-            rate=audio_data.info.samplerate,
-            output=True,
-            stream_callback=self.audio_callback
-        )
-        stream.start_stream()
-        return True
+        return self.audio_lib.startPlayback(ctypes.byref(audio_data))
 
     def close_audio_file(self, audio_data: ctypes.POINTER(AudioData)):
         """
@@ -170,25 +116,4 @@ class AudioWrapper:
         Args:
             audio_data (AudioData): The AudioData structure containing the audio data to close.
         """
-        self.pyaudio.terminate()
         self.audio_lib.closeAudioFile(ctypes.byref(audio_data))
-
-
-def playback_callback(input, output, frame_count, time_info, status_flags, user_data):
-    """
-    Callback function for audio playback.
-
-    This function is called by the audio library when it needs more audio data to play.
-
-    Args:
-        input: Pointer to the input buffer (not used in playback).
-        output: Pointer to the output buffer where audio data should be written.
-        frame_count (int): Number of frames requested for playback.
-        time_info (PaStreamCallbackTimeInfo): Timing information for the callback.
-        status_flags (int): Flags indicating possible errors or other information.
-        user_data: Pointer to user data provided when the stream was opened.
-
-    Returns:
-        int: paContinue if playback should continue, paComplete if playback is complete.
-    """
-    return AudioWrapper().audio_lib.playbackCallback(input, output, frame_count, ctypes.byref(time_info), status_flags, user_data)
