@@ -69,25 +69,25 @@ bool startPlayback(AudioData *audioData) {
       Pa_GetDeviceInfo(outputParameters.device)->defaultHighOutputLatency;
   outputParameters.hostApiSpecificStreamInfo = nullptr;
 
-  auto playbackCallback = [](const void *input, void *output, unsigned long frameCount,
-                             const PaStreamCallbackTimeInfo *timeInfo,
-                             PaStreamCallbackFlags statusFlags, void *userData) -> int {
-      float *out;
-      AudioData *audioData = (AudioData *)userData;
-      sf_count_t num_read;
+  auto playbackCallback =
+      [](const void *input, void *output, unsigned long frameCount,
+         const PaStreamCallbackTimeInfo *timeInfo,
+         PaStreamCallbackFlags statusFlags, void *userData) -> int {
+    float *out;
+    AudioData *audioData = (AudioData *)userData;
+    sf_count_t num_read;
 
-      out = (float *)output;
-      memset(out, 0, sizeof(float) * frameCount * audioData->info.channels);
+    out = (float *)output;
+    memset(out, 0, sizeof(float) * frameCount * audioData->info.channels);
 
-      num_read = sf_read_float(audioData->file, out,
-                              frameCount * audioData->info.channels);
+    num_read = sf_read_float(audioData->file, out,
+                             frameCount * audioData->info.channels);
 
-      if (num_read < frameCount) {
-        return paComplete;
-      }
-      return paContinue;
+    if (num_read < frameCount) {
+      return paComplete;
+    }
+    return paContinue;
   };
-
 
   err = Pa_OpenStream(&audioData->stream,
                       nullptr,  // No input
