@@ -20,8 +20,8 @@
 
 #ifdef MGTT_VIDEO_TEST
 
-#include <video.h>
 #include <gtest/gtest.h>
+#include <video.h>
 
 // Test fixture for vide functions
 class VideoPlaybackTest : public ::testing::Test {
