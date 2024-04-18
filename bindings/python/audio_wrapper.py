@@ -64,8 +64,6 @@ class AudioWrapper:
 
     Attributes:
         audio_lib (CDLL): The loaded audio library.
-        pyaudio (PyAudio): PyAudio instance.
-        audio_callback (PyAudio callback): The callback function for audio playback.
     """
 
     def __init__(self, path: str):
@@ -109,15 +107,7 @@ class AudioWrapper:
         Returns:
             bool: True if playback was successfully started, False otherwise.
         """
-        stream = self.pyaudio.open(
-            format=self.pyaudio.get_format_from_width(4), 
-            channels=audio_data.info.channels,
-            rate=audio_data.info.samplerate,
-            output=True,
-            stream_callback=self.audio_callback
-        )
-        stream.start_stream()
-        return True
+        return self.audio_lib.startPlayback(ctypes.byref(audio_data))
 
     def close_audio_file(self, audio_data: ctypes.POINTER(AudioData)):
         """
@@ -126,5 +116,4 @@ class AudioWrapper:
         Args:
             audio_data (AudioData): The AudioData structure containing the audio data to close.
         """
-        self.pyaudio.terminate()
         self.audio_lib.closeAudioFile(ctypes.byref(audio_data))
