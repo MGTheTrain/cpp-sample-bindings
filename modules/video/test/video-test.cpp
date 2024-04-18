@@ -26,41 +26,38 @@
 // THE
 // // SOFTWARE.
 
-// #ifdef MGTT_VIDEO_TEST
+#ifdef MGTT_VIDEO_TEST
 
-// #include <video.h>
-// #include <gtest/gtest.h>
+#include <video.h>
+#include <gtest/gtest.h>
 
-// // Test fixture for audio functions
-// class VideoPlaybackTest : public ::testing::Test {
-//  protected:
-//   virtual void SetUp() {}
+// Test fixture for vide functions
+class VideoPlaybackTest : public ::testing::Test {
+ protected:
+  virtual void SetUp() {}
 
-//   virtual void TearDown() {}
-// };
+  virtual void TearDown() {}
+};
 
-// // Test case for loading an audio file
-// TEST_F(VideoPlaybackTest, LoadAudioFileTest) {
-//   const char *filename = "assets/mp4/file_example_MP4_1280_10MG.mp4";
-//   AudioData audioData;
-//   EXPECT_TRUE(loadAudioFile(filename, &audioData));
-// }
+// Test case for loading a video file
+TEST_F(VideoPlaybackTest, LoadVideoFileTest) {
+  const char* filename = "assets/mp4/file_example_MP4_1280_10MG.mp4";
+  EXPECT_TRUE(loadVideo(filename));
+}
 
-// // Test case for starting audio playback
-// TEST_F(VideoPlaybackTest, StartPlaybackTest) {
-//   const char *filename = "assets/mp4/file_example_MP4_1280_10MG.mp4";
-//   AudioData audioData;
-//   ASSERT_TRUE(loadAudioFile(filename, &audioData));
-//   EXPECT_TRUE(startPlayback(&audioData));
-// }
+// Test case for starting video playback
+TEST_F(VideoPlaybackTest, StartPlaybackTest) {
+  const char* filename = "assets/mp4/file_example_MP4_1280_10MG.mp4";
+  EXPECT_TRUE(loadVideo(filename));
+  EXPECT_TRUE(startPlayback());
+}
 
-// // Test case for closing audio file and terminating PortAudio
-// TEST_F(VideoPlaybackTest, CloseAudioFileTest) {
-//   const char *filename = "assets/mp4/file_example_MP4_1280_10MG.mp4";
-//   AudioData audioData;
-//   ASSERT_TRUE(loadAudioFile(filename, &audioData));
-//   ASSERT_TRUE(startPlayback(&audioData));
-//   closeAudioFile(&audioData);
-// }
+// Test case for closing video file and terminating video player
+TEST_F(VideoPlaybackTest, CloseVideoFileTest) {
+  const char* filename = "assets/mp4/file_example_MP4_1280_10MG.mp4";
+  EXPECT_TRUE(loadVideo(filename));
+  EXPECT_TRUE(startPlayback());
+  closeVideoPlayer();
+}
 
-// #endif
+#endif
