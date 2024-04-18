@@ -22,9 +22,12 @@
 
 #pragma once
 
-#include <SDL2/SDL.h>
-#include <libavformat/avformat.h>
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_thread.h>
+#include <libavformat/avformat.h>
+#include <libavcodec/avcodec.h>
+#include <libswscale/swscale.h>
 #include <iostream>
 
 #ifdef __cplusplus
@@ -32,7 +35,7 @@ extern "C" {
 #endif
 static AVFormatContext* formatContext = nullptr;
 static AVCodecParameters* codecParameters = nullptr;
-static AVCodec* codec = nullptr;
+static const AVCodec* codec = nullptr;
 static AVCodecContext* codecContext = nullptr;
 static SDL_Window* window = nullptr;
 static SDL_Renderer* renderer = nullptr;
