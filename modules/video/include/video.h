@@ -22,12 +22,12 @@
 
 #pragma once
 
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_thread.h>
-#include <libavformat/avformat.h>
 #include <libavcodec/avcodec.h>
+#include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
+
 #include <iostream>
 
 #ifdef __cplusplus
