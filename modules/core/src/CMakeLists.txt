@@ -32,4 +32,4 @@ set(CORE_SRC
 add_library(${TARGET} STATIC ${CORE_SRC})
 add_library(${TARGET}_wrapper SHARED ${CORE_SRC}) # required for bindings
 
-install(TARGETS ${TARGET})
+install(TARGETS ${TARGET} ${TARGET}_wrapper)
