@@ -23,8 +23,8 @@ cmake_minimum_required(VERSION 3.10)
 set(TARGET video)
 project(${TARGET})
 
-find_package(portaudio CONFIG REQUIRED)
-find_package(SndFile CONFIG REQUIRED)
+find_package(FFMPEG REQUIRED)
+find_package(SDL2 CONFIG REQUIRED)
 
 include_directories(${PROJECT_SOURCE_DIR}/../include)
 
@@ -33,13 +33,15 @@ set(VIDEO_SRC
 )   
 
 add_library(${TARGET} STATIC ${VIDEO_SRC})
-add_library(${TARGET}_wrapper SHARED ${VIDEO_SRC}) # required for bindings
+target_include_directories(${TARGET} PRIVATE ${FFMPEG_INCLUDE_DIRS})
+target_link_directories(${TARGET} PRIVATE ${FFMPEG_LIBRARY_DIRS})
+target_link_libraries(${TARGET} PRIVATE ${FFMPEG_LIBRARIES})
+target_link_libraries(${TARGET} PRIVATE $<TARGET_NAME_IF_EXISTS:SDL2::SDL2main> $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>)
 
-if(APPLE)
-    target_link_libraries(${TARGET} SndFile::sndfile portaudio_static)
-    target_link_libraries(${TARGET}_wrapper SndFile::sndfile portaudio_static)
-else()
-    target_link_libraries(${TARGET} SndFile::sndfile portaudio)
-    target_link_libraries(${TARGET}_wrapper SndFile::sndfile portaudio)
-endif()
+add_library(${TARGET}_wrapper SHARED ${VIDEO_SRC}) # required for bindings
+target_include_directories(${TARGET}_wrapper PRIVATE ${FFMPEG_INCLUDE_DIRS})
+target_link_directories(${TARGET}_wrapper PRIVATE ${FFMPEG_LIBRARY_DIRS})
+target_link_libraries(${TARGET}_wrapper PRIVATE ${FFMPEG_LIBRARIES})
+target_link_libraries(${TARGET}_wrapper PRIVATE $<TARGET_NAME_IF_EXISTS:SDL2::SDL2main> $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>)
+
 install(TARGETS ${TARGET})
