@@ -32,7 +32,7 @@ VideoPlayer::VideoPlayer() {
   window = nullptr;
   renderer = nullptr;
   texture = nullptr;
-  SwsContext* swsContext = nullptr;
+  swsContext = nullptr;
   frame = nullptr;
   videoStream = -1;
 }
@@ -146,6 +146,12 @@ bool loadVideo(VideoPlayer& player, const char* filename) {
   player.timeBase =
       player.formatContext->streams[player.videoStream]->time_base;
   player.frameDuration = av_q2d(player.timeBase);
+
+  player.frame = av_frame_alloc();
+  if (!player.frame) {
+    std::cerr << "Failed to allocate frame\n";
+    return false;
+  }
 
   return true;
 }
