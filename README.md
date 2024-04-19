@@ -33,6 +33,7 @@ A collection of sample code snippets demonstrating how to create bindings for va
 
 - Download and install [CMake from the official website](https://cmake.org/download/)  or trough a package manager
 - Install [vcpkg from the official website](https://vcpkg.io/en/getting-started.html) or trough a package manager
+- Check dependencies required for your Linux, MacOS or Windows system in [pr.yml workflow](./.github/workflows/pr.yml)
 
 ### CMake
 
