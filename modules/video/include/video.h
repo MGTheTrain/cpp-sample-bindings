@@ -32,23 +32,26 @@ extern "C" {
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
 #endif
-static AVFormatContext* formatContext = nullptr;
-static AVCodecParameters* codecParameters = nullptr;
-static const AVCodec* codec = nullptr;
-static AVCodecContext* codecContext = nullptr;
-static SDL_Window* window = nullptr;
-static SDL_Renderer* renderer = nullptr;
-static SDL_Texture* texture = nullptr;
-static struct SwsContext* swsContext = nullptr;
-static AVFrame* frame = nullptr;
-static int videoStream = -1;
-static AVRational timeBase;
-static double frameDuration;
 
-bool initVideoPlayer();
-bool loadVideo(const char* filename);
-void playVideo();
-void closeVideoPlayer();
+struct VideoPlayer {
+    AVFormatContext* formatContext = nullptr;
+    AVCodecParameters* codecParameters = nullptr;
+    AVCodecContext* codecContext = nullptr;
+    SDL_Window* window = nullptr;
+    SDL_Renderer* renderer = nullptr;
+    SDL_Texture* texture = nullptr;
+    struct SwsContext* swsContext = nullptr;
+    AVFrame* frame = nullptr;
+    int videoStream = -1;
+    AVRational timeBase;
+    double frameDuration;
+};
+
+bool initVideoPlayer(VideoPlayer& player);
+bool loadVideo(VideoPlayer& player, const char* filename);
+void playVideo(VideoPlayer& player);
+void closeVideoPlayer(VideoPlayer& player);
+
 #ifdef __cplusplus
 }
 #endif

@@ -31,20 +31,22 @@ int main(int argc, char* argv[]) {
 
     const char* videoFileName = argv[1];
 
-    if (!initVideoPlayer()) {
+    VideoPlayer player;
+
+    if (!initVideoPlayer(player)) {
         std::cerr << "Failed to initialize video player\n";
         return -1;
     }
 
-    if (!loadVideo(videoFileName)) {
+    if (!loadVideo(player, videoFileName)) {
         std::cerr << "Failed to load video: " << videoFileName << "\n";
-        closeVideoPlayer();
+        closeVideoPlayer(player);
         return -1;
     }
 
-    playVideo();
+    playVideo(player);
 
-    closeVideoPlayer();
+    closeVideoPlayer(player);
 
     return 0;
 }
