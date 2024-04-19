@@ -22,6 +22,27 @@
 
 #include <video.h>
 
+/**
+* @brief Constructs a new VideoPlayer object.
+*/
+VideoPlayer::VideoPlayer() {
+  formatContext = nullptr;
+  codecParameters = nullptr;
+  codecContext = nullptr;
+  window = nullptr;
+  renderer = nullptr;
+  texture = nullptr;
+  SwsContext* swsContext = nullptr;
+  frame = nullptr;
+  videoStream = -1;
+}
+
+/**
+ * @brief Initializes the video player.
+ * 
+ * @param player Reference to the VideoPlayer object.
+ * @return True if initialization succeeds, false otherwise.
+ */
 bool initVideoPlayer(VideoPlayer& player) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         std::cerr << "SDL initialization failed: " << SDL_GetError() << "\n";
@@ -36,6 +57,13 @@ bool initVideoPlayer(VideoPlayer& player) {
     return true;
 }
 
+/**
+ * @brief Loads a video file into the video player.
+ * 
+ * @param player Reference to the VideoPlayer object.
+ * @param filename The path to the video file.
+ * @return True if loading succeeds, false otherwise.
+ */
 bool loadVideo(VideoPlayer& player, const char* filename) {
     if (avformat_open_input(&player.formatContext, filename, NULL, NULL) != 0) {
         std::cerr << "Couldn't open video file\n";
@@ -116,6 +144,11 @@ bool loadVideo(VideoPlayer& player, const char* filename) {
     return true;
 }
 
+/**
+ * @brief Starts playing the loaded video.
+ * 
+ * @param player Reference to the VideoPlayer object.
+ */
 void playVideo(VideoPlayer& player) {
     AVPacket packet;
     Uint32 previousFrameTime = SDL_GetTicks();
@@ -154,6 +187,11 @@ void playVideo(VideoPlayer& player) {
     }
 }
 
+/**
+ * @brief Closes the video player and releases resources.
+ * 
+ * @param player Reference to the VideoPlayer object.
+ */
 void closeVideoPlayer(VideoPlayer& player) {
     SDL_DestroyTexture(player.texture);
     SDL_DestroyRenderer(player.renderer);
