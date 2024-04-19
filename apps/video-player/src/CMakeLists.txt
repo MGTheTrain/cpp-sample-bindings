@@ -24,6 +24,9 @@ project(${TARGET})
 
 add_definitions(-DVIDEO_PLAYER)
 
+find_package(FFMPEG REQUIRED)
+find_package(SDL2 CONFIG REQUIRED)
+
 include_directories(../include
                     ../../../modules/video/include
 )
@@ -39,6 +42,7 @@ elseif(APPLE OR UNIX)
 else()
     message(WARNING "Unsupported platform")
 endif()
-target_link_libraries(${TARGET} PRIVATE video)
+
+target_link_libraries(${TARGET} PRIVATE video ${FFMPEG_LIBRARIES} SDL2::SDL2-static)
 
 install(TARGETS ${TARGET})

@@ -40,14 +40,14 @@ TEST_F(VideoPlaybackTest, LoadVideoFileTest) {
 TEST_F(VideoPlaybackTest, StartPlaybackTest) {
   const char* filename = "assets/mp4/file_example_MP4_1280_10MG.mp4";
   EXPECT_TRUE(loadVideo(filename));
-  EXPECT_TRUE(startPlayback());
+  playVideo();
 }
 
 // Test case for closing video file and terminating video player
 TEST_F(VideoPlaybackTest, CloseVideoFileTest) {
   const char* filename = "assets/mp4/file_example_MP4_1280_10MG.mp4";
   EXPECT_TRUE(loadVideo(filename));
-  EXPECT_TRUE(startPlayback());
+  playVideo();
   closeVideoPlayer();
 }
 

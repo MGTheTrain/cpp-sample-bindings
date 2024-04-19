@@ -28,7 +28,7 @@ bool initVideoPlayer() {
     return false;
   }
 
-  av_register_all();
+  // av_register_all();
   if (avformat_network_init() < 0) {
     std::cerr << "Failed to initialize FFmpeg network\n";
     return false;

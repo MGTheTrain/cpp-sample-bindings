@@ -33,9 +33,13 @@ set(VIDEO_SRC
 )   
 
 add_library(${TARGET} STATIC ${VIDEO_SRC})
-target_link_libraries(${TARGET} PRIVATE ${FFMPEG_LIBRARIES} SDL2::SDL2main SDL2::SDL2-static)
+target_include_directories(${TARGET} PRIVATE ${FFMPEG_INCLUDE_DIRS})
+target_link_directories(${TARGET} PRIVATE ${FFMPEG_LIBRARY_DIRS})
+target_link_libraries(${TARGET} PRIVATE ${FFMPEG_LIBRARIES} SDL2::SDL2-static)
 
 add_library(${TARGET}_wrapper SHARED ${VIDEO_SRC}) # required for bindings
-target_link_libraries(${TARGET}_wrapper PRIVATE ${FFMPEG_LIBRARIES} SDL2::SDL2main SDL2::SDL2-static)
+target_include_directories(${TARGET}_wrapper PRIVATE ${FFMPEG_INCLUDE_DIRS})
+target_link_directories(${TARGET}_wrapper PRIVATE ${FFMPEG_LIBRARY_DIRS})
+target_link_libraries(${TARGET}_wrapper PRIVATE ${FFMPEG_LIBRARIES} SDL2::SDL2-static)
 
 install(TARGETS ${TARGET} ${TARGET}_wrapper)

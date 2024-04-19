@@ -22,16 +22,15 @@
 
 #pragma once
 
+#include <iostream>
+
+#ifdef __cplusplus
+extern "C" {
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_thread.h>
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
-
-#include <iostream>
-
-#ifdef __cplusplus
-extern "C" {
 #endif
 static AVFormatContext* formatContext = nullptr;
 static AVCodecParameters* codecParameters = nullptr;
