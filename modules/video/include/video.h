@@ -34,17 +34,17 @@ extern "C" {
 #endif
 
 struct VideoPlayer {
-    AVFormatContext* formatContext = nullptr;
-    AVCodecParameters* codecParameters = nullptr;
-    AVCodecContext* codecContext = nullptr;
-    SDL_Window* window = nullptr;
-    SDL_Renderer* renderer = nullptr;
-    SDL_Texture* texture = nullptr;
-    struct SwsContext* swsContext = nullptr;
-    AVFrame* frame = nullptr;
-    int videoStream = -1;
-    AVRational timeBase;
-    double frameDuration;
+  AVFormatContext* formatContext = nullptr;
+  AVCodecParameters* codecParameters = nullptr;
+  AVCodecContext* codecContext = nullptr;
+  SDL_Window* window = nullptr;
+  SDL_Renderer* renderer = nullptr;
+  SDL_Texture* texture = nullptr;
+  struct SwsContext* swsContext = nullptr;
+  AVFrame* frame = nullptr;
+  int videoStream = -1;
+  AVRational timeBase;
+  double frameDuration;
 };
 
 bool initVideoPlayer(VideoPlayer& player);
