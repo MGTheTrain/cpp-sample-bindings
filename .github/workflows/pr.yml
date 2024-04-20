@@ -16,10 +16,7 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y \
         build-essential \
-        cmake portaudio19-dev \ 
-        libasound2-dev alsa-utils \
-        nasm libwayland-dev libxkbcommon-dev \
-        libegl1-mesa-dev
+        cmake portaudio19-dev nasm
     - name: Check ALSA Mixer Settings
       run: alsamixer
     - name: Install vcpkg
