@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 20-04-2024
+
+### Added
+
+- [Feature] C++ video module **(Optional, Experimental)**.
+
 ## [0.6.0] - 17-04-2024
 
 ### Updated

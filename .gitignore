@@ -15,3 +15,5 @@ obj
 bin
 Cargo.lock
 target
+vcpkg
+*.backup

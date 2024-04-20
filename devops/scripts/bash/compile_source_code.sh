@@ -51,6 +51,6 @@ echo -e "$BLUE INFO: $NC Compilation of the source code and linking binaries suc
 
 if [ "$NoTests" = false ]; then
   cd "build"
-  ctest --verbose -E audio_test # ignore audio_test executable in workflows
+  ctest --verbose -E "video_test|audio_test" # ignore audio_test and video_test executable in workflows
   # ctest --verbose
 fi
