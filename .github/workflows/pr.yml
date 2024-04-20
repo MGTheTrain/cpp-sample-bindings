@@ -30,7 +30,6 @@ jobs:
 
   build_windows:
     runs-on: windows-latest
-    needs: [build_and_test_ubuntu]
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -53,7 +52,6 @@ jobs:
   
   build_macos:
     runs-on: macos-latest
-    needs: [build_and_test_ubuntu]
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
