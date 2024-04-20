@@ -29,6 +29,7 @@ find_package(SDL2 CONFIG REQUIRED)
 
 include_directories(../include
                     ../../../modules/video/include
+                    ${FFMPEG_INCLUDE_DIRS}
 )
 set(VIDEO_PLAYER_SRC video-player.cpp)                        
 
@@ -43,6 +44,6 @@ else()
     message(WARNING "Unsupported platform")
 endif()
 
-target_link_libraries(${TARGET} PRIVATE video ${FFMPEG_LIBRARIES} SDL2::SDL2-static)
+target_link_libraries(${TARGET} PRIVATE video ${FFMPEG_LIBRARIES} SDL2::SDL2)
 
 install(TARGETS ${TARGET})

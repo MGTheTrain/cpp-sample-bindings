@@ -34,9 +34,9 @@ set(VIDEO_SRC
 )   
 
 add_library(${TARGET} STATIC ${VIDEO_SRC})
-target_link_libraries(${TARGET} PRIVATE ${FFMPEG_LIBRARIES} SDL2::SDL2-static)
+target_link_libraries(${TARGET} PRIVATE ${FFMPEG_LIBRARIES} SDL2::SDL2)
 
 add_library(${TARGET}_wrapper SHARED ${VIDEO_SRC}) # required for bindings
-target_link_libraries(${TARGET}_wrapper PRIVATE ${FFMPEG_LIBRARIES} SDL2::SDL2-static)
+target_link_libraries(${TARGET}_wrapper PRIVATE ${FFMPEG_LIBRARIES} SDL2::SDL2)
 
 install(TARGETS ${TARGET} ${TARGET}_wrapper)
