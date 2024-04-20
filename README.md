@@ -25,7 +25,7 @@ A collection of sample code snippets demonstrating how to create bindings for va
 - [x] Sample Go wrappers refering to C++ compiled source code resulting in shared libraries 
 - [x] Sample C# wrappers refering to C++ compiled source code resulting in shared libraries
 - [x] C++ audio module **(Optional, Experimental)**
-- [ ] ~~C++ video module **(Optional, Experimental)**~~
+- [ ] C++ video module **(Optional, Experimental)**
 
 ## Getting started
 
