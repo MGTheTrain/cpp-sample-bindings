@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.1] - 23-12-2024
+
+### Added
+
+- Added vcpkg git submodule
+
+### Removed
+
+- Removed obsolete vcpkg CMake module
+
+### Fixed
+
+- Changed license to LPGL-2.1 due to use of `ffmpeg`
+
 ## [0.7.0] - 20-04-2024
 
 ### Added
@@ -17,8 +31,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Updated
 
-- utilize lambda expression for `playbackCallback`
-- Update python binding
+- Utilized lambda expression for `playbackCallback`
+- Updated python binding
 
 ## [0.5.0] - 17-04-2024
 
@@ -40,7 +54,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed 
 
-- comment out lines in [install-dependencies.sh](.devcontainer/go/scripts/install-dependencies.sh) bash scripts
+- Commented out lines in [install-dependencies.sh](.devcontainer/go/scripts/install-dependencies.sh) bash scripts
 
 ## [0.2.0] - 15-04-2024
 
@@ -50,7 +64,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed 
 
-- Rename, comment out lines and install missing apt dependencies in `install-dependencies.sh` bash scripts
+- Renamed, commented out lines and installed missing apt dependencies in `install-dependencies.sh` bash scripts
 
 ## [0.1.0] - 15-04-2024
 
