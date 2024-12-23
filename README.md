@@ -34,6 +34,7 @@ A collection of sample code snippets demonstrating how to create bindings for va
 - Download and install [CMake from the official website](https://cmake.org/download/)  or trough a package manager
 - Install [vcpkg from the official website](https://vcpkg.io/en/getting-started.html) or trough a package manager
 - Check dependencies required for your Linux, MacOS or Windows system in [pr.yml workflow](./.github/workflows/pr.yml)
+- Add git submodules: `git subdmodule update --init`
 
 ### CMake
 
@@ -43,14 +44,14 @@ In order to compile the source code and link the binaries run in a Unix terminal
 
 ```sh
 cd devops/scripts/bash/
-./compile_source_code.sh -CMakeToolchainFile <path to the vcpkg.cmake file>
+./compile_source_code.sh -CMakeToolchainFile third-party/vcpkg/scripts/buildsystems/vcpkg.cmake
 ```
 
 In order to additionaly start the test executables in a Unix terminal: 
 
 ```sh
 cd devops/scripts/bash/
-./compile_source_code.sh -CMakeToolchainFile <path to the vcpkg.cmake file> -RunTests
+./compile_source_code.sh -CMakeToolchainFile third-party/vcpkg/scripts/buildsystems/vcpkg.cmake -RunTests
 ```
 
 #### Windows
@@ -59,14 +60,14 @@ In order to compile the source code and link the binaries run in a PowerShell te
 
 ```sh
 cd devops\scripts\ps1
-.\compile_source_code.ps1 -CMakeToolchainFile <path to the vcpkg.cmake file>
+.\compile_source_code.ps1 -CMakeToolchainFile third-party/vcpkg/scripts/buildsystems/vcpkg.cmake
 ```
 
 In order to additionaly start the test executables in a PowerShell terminal: 
 
 ```sh
 cd devops\scripts\ps1
-.\compile_source_code.ps1 -CMakeToolchainFile <path to the vcpkg.cmake file> -RunTests
+.\compile_source_code.ps1 -CMakeToolchainFile third-party/vcpkg/scripts/buildsystems/vcpkg.cmake -RunTests
 ```
 
 ### Bindings
